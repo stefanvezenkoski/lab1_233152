@@ -20,7 +20,7 @@
             <th>Actions</th>
         </tr>
         <tr th:each="dish : ${dishes}">
-            <td th:text="${dish.id}"></td>
+            <td th:text="${dish.getDishId()}"></td>
             <td th:text="${dish.name}"></td>
             <td th:text="${dish.cuisine}"></td>
             <td th:text="${dish.preparationTime}"></td>

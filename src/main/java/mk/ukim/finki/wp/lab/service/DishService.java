@@ -12,5 +12,4 @@ public interface DishService {
     Dish create(String dishId, String name, String cuisine, int preparationTime);
     Dish update(Long id, String dishId, String name, String cuisine, int preparationTime);
     void delete(Long id);
-
 }

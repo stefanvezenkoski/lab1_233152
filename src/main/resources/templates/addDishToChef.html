@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Dish to Chef</title>
+</head>
+<body>
+
+<h1>Add Dish to Chef</h1>
+
+<form th:action="@{/dishes/add-to-chef}" method="post">
+
+    <label>Chef:</label>
+    <select name="chefId">
+        <option th:each="c : ${chefs}"
+                th:value="${c.id}"
+                th:text="${c.firstName + ' ' + c.lastName}">
+        </option>
+    </select>
+    <br/><br/>
+
+    <label>Dish:</label>
+    <select name="dishId">
+        <option th:each="d : ${dishes}"
+                th:value="${d.id}"
+                th:text="${d.name}">
+        </option>
+    </select>
+    <br/><br/>
+
+    <button type="submit">Add</button>
+
+</form>
+
+</body>
+</html>
