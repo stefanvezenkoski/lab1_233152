@@ -5,9 +5,8 @@
 </head>
 <body>
 
-<h1 th:text="${dish.id} != null ? 'Edit dish' : 'Add new dish'"></h1>
+<h1 th:text="${dish.id != null} ? 'Edit dish' : 'Add new dish'"></h1>
 
-<!-- EDIT FORM -->
 <form th:if="${dish.id != null}"
       th:action="@{'/dishes/edit/' + ${dish.id}}"
       method="post">
@@ -31,7 +30,6 @@
     <button type="submit">Save</button>
 </form>
 
-<!-- ADD FORM -->
 <form th:if="${dish.id == null}"
       th:action="@{'/dishes/add'}"
       method="post">

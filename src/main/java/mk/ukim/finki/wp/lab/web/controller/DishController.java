@@ -69,5 +69,20 @@ public class DishController {
         return "redirect:/dishes";
     }
 
+    @GetMapping("/add-to-chef")
+    public String showAddDishToChefPage(Model model) {
+        model.addAttribute("chefs", chefService.listChefs());
+        model.addAttribute("dishes", dishService.listDishes());
+        return "addDishToChef";
+    }
+
+    @PostMapping("/add-to-chef")
+    public String addDishToChef(@RequestParam Long chefId,
+                                @RequestParam String dishId) {
+
+        chefService.addDishToChef(chefId, dishId);
+        return "redirect:/chefs/" + chefId;
+    }
+
 
 }
