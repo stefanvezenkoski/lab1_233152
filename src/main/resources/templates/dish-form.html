@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dish form</title>
+</head>
+<body>
+
+<h1 th:text="${dish.id} != null ? 'Edit dish' : 'Add new dish'"></h1>
+
+<!-- EDIT FORM -->
+<form th:if="${dish.id != null}"
+      th:action="@{'/dishes/edit/' + ${dish.id}}"
+      method="post">
+
+    <label>Dish ID:</label>
+    <input type="text" name="dishId" th:value="${dish.dishId}">
+    <br/>
+
+    <label>Name:</label>
+    <input type="text" name="name" th:value="${dish.name}">
+    <br/>
+
+    <label>Cuisine:</label>
+    <input type="text" name="cuisine" th:value="${dish.cuisine}">
+    <br/>
+
+    <label>Preparation time:</label>
+    <input type="number" name="preparationTime" th:value="${dish.preparationTime}">
+    <br/>
+
+    <button type="submit">Save</button>
+</form>
+
+<!-- ADD FORM -->
+<form th:if="${dish.id == null}"
+      th:action="@{'/dishes/add'}"
+      method="post">
+
+    <label>Dish ID:</label>
+    <input type="text" name="dishId">
+    <br/>
+
+    <label>Name:</label>
+    <input type="text" name="name">
+    <br/>
+
+    <label>Cuisine:</label>
+    <input type="text" name="cuisine">
+    <br/>
+
+    <label>Preparation time:</label>
+    <input type="number" name="preparationTime">
+    <br/>
+
+    <button type="submit">Save</button>
+</form>
+
+<br/>
+
+<a th:href="@{/dishes}">Back to list</a>
+
+</body>
+</html>

@@ -2,6 +2,10 @@ package mk.ukim.finki.wp.lab.model;
 
 public class Dish {
 
+    private static Long counter = 0L;
+
+    private Long id;
+
     private String dishId;
     private String name;
     private String cuisine;
@@ -12,6 +16,10 @@ public class Dish {
         this.name = name;
         this.cuisine = cuisine;
         this.preparationTime = preparationTime;
+    }
+
+    public Dish() {
+
     }
 
     public String getDishId() {

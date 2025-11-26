@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dishes</title>
+</head>
+<body>
+    <h1>All Dishes</h1>
+
+    <div th:if="${hasError}">
+        <p th:text="${error}" style="color:red;"></p>
+    </div>
+
+    <table border="1">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Cuisine</th>
+            <th>Preparation time</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="dish : ${dishes}">
+            <td th:text="${dish.id}"></td>
+            <td th:text="${dish.name}"></td>
+            <td th:text="${dish.cuisine}"></td>
+            <td th:text="${dish.preparationTime}"></td>
+            <td>
+                <a th:href="@{'/dishes/dish-form/' + ${dish.id}}">Edit</a>
+
+                <form th:action="@{'/dishes/delete/' + ${dish.id}}"
+                      method="post" style="display:inline">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+
+        </tr>
+    </table>
+
+    <br>
+
+    <a th:href="@{/dishes/dish-form}">Add new dish</a>
+
+</body>
+</html>
