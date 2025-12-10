@@ -7,6 +7,7 @@
 
 <h1 th:text="${dish.id != null} ? 'Edit dish' : 'Add new dish'"></h1>
 
+<!-- EDIT FORM -->
 <form th:if="${dish.id != null}"
       th:action="@{'/dishes/edit/' + ${dish.id}}"
       method="post">
@@ -27,9 +28,20 @@
     <input type="number" name="preparationTime" th:value="${dish.preparationTime}">
     <br/>
 
+    <label>Chef:</label>
+    <select name="chefId">
+        <option th:each="c : ${chefs}"
+                th:value="${c.id}"
+                th:text="${c.firstName + ' ' + c.lastName}"
+                th:selected="${dish.chef != null and dish.chef.id == c.id}">
+        </option>
+    </select>
+    <br/>
+
     <button type="submit">Save</button>
 </form>
 
+<!-- ADD FORM -->
 <form th:if="${dish.id == null}"
       th:action="@{'/dishes/add'}"
       method="post">
@@ -46,9 +58,17 @@
     <input type="text" name="cuisine">
     <br/>
 
-
     <label>Preparation time:</label>
     <input type="number" name="preparationTime">
+    <br/>
+
+    <label>Chef:</label>
+    <select name="chefId">
+        <option th:each="c : ${chefs}"
+                th:value="${c.id}"
+                th:text="${c.firstName + ' ' + c.lastName}">
+        </option>
+    </select>
     <br/>
 
     <button type="submit">Save</button>

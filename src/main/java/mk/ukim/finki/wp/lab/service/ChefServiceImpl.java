@@ -1,6 +1,5 @@
 package mk.ukim.finki.wp.lab.service;
 
-import mk.ukim.finki.wp.lab.bootstrap.DataHolder;
 import mk.ukim.finki.wp.lab.model.Chef;
 import mk.ukim.finki.wp.lab.model.Dish;
 import mk.ukim.finki.wp.lab.repository.ChefRepository;

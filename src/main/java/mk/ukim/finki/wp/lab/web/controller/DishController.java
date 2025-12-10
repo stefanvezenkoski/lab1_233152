@@ -1,5 +1,6 @@
 package mk.ukim.finki.wp.lab.web.controller;
 
+import mk.ukim.finki.wp.lab.model.Chef;
 import mk.ukim.finki.wp.lab.model.Dish;
 import mk.ukim.finki.wp.lab.repository.DishRepository;
 import mk.ukim.finki.wp.lab.service.ChefService;
@@ -8,10 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
+import java.util.List;
+
 
 @Controller
-    @RequestMapping("/dishes")
+@RequestMapping("/dishes")
 public class DishController {
+
     private final DishService dishService;
     private final ChefService chefService;
 
@@ -33,6 +37,7 @@ public class DishController {
     @GetMapping("/dish-form")
     public String getAddDishForm(Model model){
         model.addAttribute("dish", new Dish());
+        model.addAttribute("chefs", chefService.listChefs());
         return "dish-form";
     }
 
@@ -41,6 +46,7 @@ public class DishController {
         try {
             Dish dish = dishService.findById(id);
             model.addAttribute("dish", dish);
+            model.addAttribute("chefs", chefService.listChefs());
             return "dish-form";
         } catch (RuntimeException e) {
             return "redirect:/dishes?error=DishNotFound";
@@ -48,8 +54,14 @@ public class DishController {
     }
 
     @PostMapping("/add")
-    public String saveDish(@RequestParam String dishId, @RequestParam String name,  @RequestParam String cuisine,  @RequestParam int preparationTime){
-        dishService.create(dishId, name, cuisine, preparationTime);
+    public String saveDish(@RequestParam String dishId,
+                           @RequestParam String name,
+                           @RequestParam String cuisine,
+                           @RequestParam int preparationTime, @RequestParam Long chefId) {
+
+        Chef chef = chefService.findById(chefId);
+        dishService.create(dishId, name, cuisine, preparationTime, chef);
+
         return "redirect:/dishes";
     }
 
@@ -58,8 +70,11 @@ public class DishController {
                            @RequestParam String dishId,
                            @RequestParam String name,
                            @RequestParam String cuisine,
-                           @RequestParam int preparationTime) {
-        dishService.update(id, dishId, name, cuisine, preparationTime);
+                           @RequestParam int preparationTime, @RequestParam Long chefId) {
+
+
+        Chef chef = chefService.findById(chefId);
+        dishService.update(id, dishId, name, cuisine, preparationTime, chef);
         return "redirect:/dishes";
     }
 
@@ -83,6 +98,4 @@ public class DishController {
         chefService.addDishToChef(chefId, dishId);
         return "redirect:/chefs/" + chefId;
     }
-
-
 }

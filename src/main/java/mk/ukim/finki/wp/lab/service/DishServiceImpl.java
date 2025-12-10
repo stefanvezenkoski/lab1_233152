@@ -1,13 +1,12 @@
 package mk.ukim.finki.wp.lab.service;
 
-import mk.ukim.finki.wp.lab.bootstrap.DataHolder;
+import mk.ukim.finki.wp.lab.model.Chef;
 import mk.ukim.finki.wp.lab.model.Dish;
 
 import mk.ukim.finki.wp.lab.repository.DishRepository;
 import org.springframework.stereotype.Service;
 
 
-import javax.xml.crypto.Data;
 import java.util.List;
 
 @Service
@@ -35,18 +34,19 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
-    public Dish create(String dishId, String name, String cuisine, int preparationTime) {
+    public Dish create(String dishId, String name, String cuisine, int preparationTime, Chef chef) {
         Dish dish = new Dish(dishId, name, cuisine, preparationTime);
         return dishRepository.save(dish);
     }
 
     @Override
-    public Dish update(Long id, String dishId, String name, String cuisine, int preparationTime) {
+    public Dish update(Long id, String dishId, String name, String cuisine, int preparationTime, Chef chef) {
         Dish dish = this.findById(id);
         dish.setDishId(dishId);
         dish.setName(name);
         dish.setCuisine(cuisine);
         dish.setPreparationTime(preparationTime);
+
         return dishRepository.save(dish);
     }
 

@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: wp-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: stefan
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: dishes
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  postgres-data:
